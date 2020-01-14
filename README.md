@@ -5,15 +5,44 @@ Pre-reqs for the demo:
 * multipass
   
 Demo Steps:
-1. Clone this repo and change directory to the repo folder
-2. Run multipass-setup.sh
-3. Start up minikube
-4. Launch skaffold via the command:   skaffold dev
-5. After build and deploy complete
-   - Check k8s deployment:   kubectl get deploy,po
-   - Load browser:   http://localhost:80/test
-6. Make changes to any of the code - Dockerfile or main.go
-7. Skaffold will notice the changes, rebuild & deploy
-   - Check k8s deployment again:   kubectl get deploy,po 
-   - Load browser again:  http://localhost:80/test
-8. Ctrl+c to exit skaffold (this will tear down the k8s artifacts)
+1.  Clone this repo and change directory to the repo folder
+```
+git clone && cd $_
+```
+2.  Spin up a multipass instance with prereqs
+```
+bash multipass-setup.sh
+```
+3.  Shell into the multipass instance
+```
+multipass shell ubuntu-multipass
+```
+4.  Start up minikube and enable ingress
+```
+sudo minikube start --vm-driver=none --kubernetes-version v1.16.3
+sudo minikube addons enable ingress
+sudo chown -R $USER:$USER ~/.minikube/ ~/.kube/
+```
+5.  Launch skaffold
+```
+cd ~/multipass
+skaffold dev
+```
+6.  Open another shell into multipass and get the service URL
+```
+mutlipass shell ubuntu-multipass
+minikube service cowsay-server --url
+```
+7.  Validate working
+    - Check k8s deployment:   'kubectl get deploy,po'
+    - Load browser:   (URL from above)
+8.  Make changes to any of the code - Dockerfile or main.go
+9.  Skaffold will notice the changes, rebuild & deploy
+    - Check k8s deployment again:   kubectl get deploy,po 
+    - Load browser again:  h(URL from above)
+9.  Ctrl+c to exit skaffold (this will tear down the k8s artifacts)
+10. Completely tear down the demo (when you are done)
+```
+multipass delete ubuntu-multipass
+multipass purge
+```
