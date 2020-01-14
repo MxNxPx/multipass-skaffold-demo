@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cowsay-server
+  labels:
+    app: cowsay-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cowsay-server
+  template:
+    metadata:
+      labels:
+        app: cowsay-server
+    spec:
+      containers:
+      - name: cowsay-server
+        image: cowsay-server
+        ports:
+        - containerPort: 80
