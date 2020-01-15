@@ -25,7 +25,7 @@ sudo chown -R $USER:$USER ~/.minikube/ ~/.kube/
 ```
 5.  Launch skaffold
 ```
-cd ~/multipass
+cd ~/skaffold
 skaffold dev
 ```
 6.  Open another shell into multipass and get the service URL
