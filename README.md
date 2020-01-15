@@ -7,7 +7,7 @@ Pre-reqs for the demo:
 Demo Steps:
 1.  Clone this repo and change directory to the repo folder
 ```
-git clone && cd $_
+git clone https://github.com/MxNxPx/multipass-skaffold-demo.git && cd $_
 ```
 2.  Spin up a multipass instance with prereqs
 ```
