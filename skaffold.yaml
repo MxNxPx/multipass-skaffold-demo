@@ -1,4 +1,4 @@
-apiVersion: skaffold/v1beta3
+apiVersion: skaffold/v2beta9
 kind: Config
 build:
   artifacts:
@@ -9,3 +9,11 @@ deploy:
   kubectl:
     manifests:
     - ./cowsay-config/*
+profiles:
+  - name: minikube
+    activation:
+      - kubeContext: minikube
+    deploy:
+      kubectl:
+        manifests:
+        - ./cowsay-config/*
